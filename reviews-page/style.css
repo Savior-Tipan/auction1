@@ -1,0 +1,366 @@
+/* Importing Techy Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+/* Global Styles */
+body {
+    background-image: url('../reviews-page/images/hero-bg.png'); /* Background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Roboto', sans-serif;
+    color: #f8f8f8; /* Text color */
+    background-color: #1a1a1a; /* Fallback color */
+}
+
+/* Header Styles */
+header.header {
+    background-color: rgba(212, 98, 98, 0.9); /* Semi-transparent dark red */
+    padding: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+}
+
+header .logo img {
+    max-width: 150px;
+}
+
+.navbar-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-link {
+    color: #ffffff; /* Text color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-family: 'Orbitron', sans-serif; /* Techy font */
+}
+
+.navbar-link:hover {
+    color: #ffcccc; /* Hover color */
+    text-shadow: 0 0 5px #ffcccc; /* Hover shadow effect */
+}
+
+/* Page Title */
+.page-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffdddd; /* Title color */
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+/* All Reviews Title Styles */
+.all-reviews-title {
+    font-family: 'Orbitron', sans-serif; /* Techy font */
+    color: #ffdddd; /* Title color */
+    text-align: center; /* Center alignment */
+    margin: 40px 0; /* Margin for spacing */
+    font-size: 2.5rem; /* Font size */
+}
+
+/* Success and Warning Messages */
+.success {
+    background-color: rgba(40, 157, 40, 0.8);
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Spacing between messages */
+}
+
+.warning {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Spacing between messages */
+}
+
+/* Review Form Styles */
+#reviewForm {
+    background-color: rgba(30, 30, 30, 0.8); /* Dark background for review square */
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+#reviewForm label {
+    color: #ffffff; /* Label color */
+    font-weight: 600;
+}
+
+#reviewForm .form-control,
+#reviewForm .form-control-file {
+    background-color: rgba(227, 191, 191, 0.2);
+    border: none;
+    color: #ffffff; /* Input text color */
+}
+
+#reviewForm .btn-primary {
+    background-color: #cc0000; /* Button background color */
+    border: none;
+    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+}
+
+#reviewForm .btn-primary:hover {
+    background-color: #ff0000; /* Button hover color */
+    transform: scale(1.05); /* Button hover effect */
+}
+
+/* Base styling for stars */
+.star {
+    font-size: 2rem;
+    color: #ccc; /* Default color for stars */
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+/* Change the color of selected stars */
+.star.selected,
+.star:hover,
+.star:hover ~ .star {
+    color: gold; /* Color for selected or hovered stars */
+}
+
+/* Rating error styling */
+#error-message {
+    color: red;
+    margin-top: 5px;
+    display: none;
+}
+
+
+/* Reviews Section */
+.reviews .card {
+    background-color: rgba(50, 50, 50, 0.85); /* Dark square with subtle transparency */
+    border: none; /* Remove border to avoid double frame */
+    border-radius: 10px;
+    padding: 15px; /* Padding for the card */
+    margin-bottom: 20px; /* Spacing between cards */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+.reviews .card-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff; /* Title color */
+    margin-bottom: 10px; /* Space below title */
+    text-align: center; /* Center title text */
+}
+
+.reviews .review-stars {
+    color: #ffcc00; /* Star color */
+}
+
+.reviews .card-text {
+    color: #ffffff; /* Text color */
+}
+
+/* Media Preview Styles */
+.media-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.media-item {
+    position: relative; /* Added to position the delete button absolutely within */
+    width: 100px; /* Square size */
+    height: 100px; /* Square size */
+    overflow: hidden;
+    border-radius: 5px;
+    border: 2px solid #ff4d4d; /* Border for media item */
+    cursor: pointer; /* Pointer cursor to indicate interactivity */
+}
+
+.media-item img,
+.media-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio and fit inside the square */
+    display: block; /* Remove any inline spacing */
+}
+
+/* Delete Button Styles */
+.delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 0, 0, 0.8); /* Red background */
+    color: #ffffff; /* White text color */
+    border: none; /* No border */
+    border-radius: 50%; /* Circular button */
+    width: 25px;
+    height: 25px;
+    font-size: 1.2rem;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+    z-index: 10; /* Ensure it appears above the media */
+}
+
+.delete-btn:hover {
+    background-color: rgba(255, 0, 0, 1); /* Solid red on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.delete-btn:focus {
+    outline: none; /* Remove focus outline */
+    box-shadow: 0 0 5px rgba(255, 0, 0, 1); /* Red shadow on focus */
+}
+
+/* Modal Styles */
+.modal-content {
+    background-color: rgba(202, 162, 162, 0.9); /* Modal background color */
+    border: none;
+    width: 800px; /* Fixed width */
+    height: 500px; /* Fixed height */
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-body {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: calc(100% - 60px); /* Adjust height based on header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body img,
+.modal-body video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure same standard size */
+    max-width: 400px; /* Set max size for media */
+    max-height: 400px; /* Set max size for media */
+}
+
+/* Arrow Navigation */
+.modal-prev,
+.modal-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(213, 99, 99, 0.8); /* Arrow background */
+    border: none;
+    color: #ffffff; /* Arrow color */
+    font-size: 2rem; /* Adjusted size for smaller circles */
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%; /* Circular background for arrows */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    transition: background 0.3s, transform 0.2s;
+    z-index: 1000;
+}
+
+.modal-prev {
+    left: 10px;
+}
+
+.modal-next {
+    right: 10px;
+}
+
+.modal-prev:hover,
+.modal-next:hover {
+    background: rgba(255, 255, 255, 0.8); /* Hover background */
+    color: #cc0000; /* Arrow hover color */
+    transform: translateY(-50%) scale(1.05); /* Slightly enlarge on hover */
+}
+
+.modal-prev::before,
+.modal-next::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reviews .card {
+        padding: 10px; /* Less padding for smaller screens */
+    }
+
+    .media-preview {
+        flex-direction: column; /* Column layout for mobile */
+    }
+
+    .media-item {
+        width: 80px; /* Smaller size on mobile */
+        height: 80px; /* Smaller size on mobile */
+    }
+
+    .delete-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 1rem;
+        line-height: 20px;
+    }
+}
+
+#allReviewsHeader {
+    font-family: 'Orbitron', sans-serif; /* Change to your preferred font */
+    font-size: 2rem; /* Adjust font size as needed */
+    color: #f3e7e7; /* Change to your preferred color */
+    text-align: center; /* Center the text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for depth */
+    margin-bottom: 20px; /* Add some spacing below the header */
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    margin-top: 5px;
+}
+
+.no-reviews-message {
+    background-color: #e3f2fd; /* Light blue background */
+    border: 2px solid #6fed88; /* Blue border */
+    padding: 20px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif; /* Techy font */
+    color: #cd6552; /* Dark blue text color */
+    text-align: center;
+    font-size: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    margin: 20px auto;
+    max-width: 600px; /* Center the message with a reasonable width */
+}
+
+.no-reviews-message p {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.text-noreviewpost {
+    background-color: #ffebee; /* Light red background */
+    border: 2px solid #f44336; /* Red border */
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif; /* Techy font style */
+    color: #b71c1c; /* Dark red text color */
+    text-align: center;
+    font-size: 18px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.text-noreviewpost p {
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}

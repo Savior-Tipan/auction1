@@ -1,0 +1,196 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Sets the font for the entire body */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    background-image: url('../css/images/hero-bg.png'); /* Background image */
+    background-size: cover; /* Ensures the background image covers the entire area */
+    background-position: center; /* Centers the background image */
+    color: #333; /* Sets a dark gray text color */
+}
+
+.container {
+    width: 90%; /* Sets the width of the container to 90% of the viewport */
+    max-width: 800px; /* Maximum width for larger screens */
+    margin: 20px auto; /* Adds top margin to separate from header */
+    padding: 40px; /* Adds padding inside the container */
+    background-color: rgba(255, 255, 255, 0.742); /* Slightly transparent white background */
+    border-radius: 10px; /* Rounds the corners of the container */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+}
+
+.container-header {
+    width: 90%; /* Sets the width of the container to 90% of the viewport */
+    max-width: 800px; /* Maximum width for larger screens */
+    margin: 8px auto; /* Adds top margin to separate from header */
+    padding: 40px; /* Adds padding inside the container */
+    background-color: rgba(255, 255, 255, 0.742); /* Slightly transparent white background */
+    border-radius: 10px; /* Rounds the corners of the container */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+}
+
+
+/* Header Styles */
+.header {
+    background-color: rgba(210, 91, 91, 0.85); /* Softer red background color for the header */
+    padding: 20px 0; /* Increased padding for a taller header */
+    width: 100%; /* Ensures the header takes the full width of the viewport */
+}
+
+.header .logo {
+    float: left; /* Positions the logo to the left */
+}
+
+#logo-img {
+    height: 90px; /* Sets a taller height for the logo image */
+}
+
+nav {
+    float: right; /* Positions the navigation links to the right */
+}
+
+nav a {
+    text-decoration: none; /* Removes underline from links */
+    padding: 15px 25px; /* Adds padding for better button visibility */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    font-family: 'Orbitron', sans-serif; /* Sets a techy font for buttons */
+    font-weight: bold; /* Makes the text bold for better visibility */
+    color: #0c0b0c; /* Sets text color to dark gray */
+    border-radius: 5px; /* Rounds the corners of the buttons */
+}
+
+nav a:hover {
+    background-color: rgba(219, 151, 151, 0.85); /* Darker red on hover for feedback */
+}
+
+/* Main Styles */
+main {
+    padding: 20px; /* Adds padding around the main content */
+}
+
+h1 {
+    font-family: 'Orbitron', sans-serif; /* Sets a techy font for the main heading */
+    color: rgba(178, 34, 34, 0.9); /* Softer red for the heading color */
+    margin-bottom: 10px; /* Adds space below the heading */
+    text-align: center; /* Centers the heading text */
+}
+
+h2 {
+    color: #555; /* Sets a gray color for subheadings */
+    text-align: center; /* Centers the subheading text */
+}
+
+ul {
+    list-style-type: none; /* Removes bullets from the list */
+    padding: 0; /* Removes default padding */
+    text-align: center; /* Centers list items */
+}
+
+li {
+    margin: 10px 0; /* Adds space between list items */
+    padding: 10px; /* Adds padding inside each list item */
+    border: 1px solid #f32b2b; /* Light gray border for each item */
+    border-radius: 5px; /* Rounds the corners of the list items */
+    background-color: #f9f9f9; /* Light background color for items */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+li:hover {
+    background-color: rgba(255, 228, 225, 0.9); /* Light red background on hover */
+}
+
+/* Action Links */
+.action-links {
+    margin-top: 20px; /* Adds space above the action links */
+    text-align: center; /* Centers action links */
+}
+
+.action-links a {
+    display: inline-block; /* Allows setting width and height for links */
+    background-color: rgba(178, 34, 34, 0.85); /* Softer red background for action links */
+    color: #fff; /* White text color for links */
+    padding: 10px 15px; /* Adds padding for better visibility */
+    border-radius: 5px; /* Rounds the corners of the action link buttons */
+    text-decoration: none; /* Removes underline from links */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    font-family: 'Orbitron', sans-serif; /* Techy font for buttons */
+    font-weight: bold; /* Makes the text bold */
+    margin: 5px; /* Adds margin between action links */
+}
+
+.action-links a:hover {
+    background-color: rgba(139, 0, 0, 0.85); /* Darker red on hover for feedback */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center; /* Centers footer text */
+    padding: 10px 0; /* Adds padding above and below footer text */
+    background-color: rgba(178, 34, 34, 0.85); /* Softer red background for the footer */
+    color: #fff; /* White text color for the footer */
+    position: relative; /* Positions footer relative to the page */
+    bottom: 0; /* Positions footer at the bottom */
+    width: 100%; /* Full width for the footer */
+    margin-top: 20px; /* Adds space above the footer */
+}
+
+/* Media Queries for Responsive Design */
+/* For mobile devices */
+@media (max-width: 480px) {
+    .header {
+        padding: 30px 0; /* Reduces padding for smaller screens */
+    }
+
+    nav a {
+        padding: 10px 15px; /* Reduces padding for buttons */
+        font-size: 0.9em; /* Slightly reduces font size */
+    }
+
+    h1, h2 {
+        font-size: 1.2em; /* Adjusts heading sizes for better visibility */
+    }
+
+    .container {
+        width: 95%; /* Sets container width to 95% on small screens */
+    }
+}
+
+/* For tablets and small laptops */
+@media (min-width: 481px) and (max-width: 768px) {
+    .header {
+        padding: 35px 0; /* Medium padding for tablet screens */
+    }
+
+    nav a {
+        padding: 12px 20px; /* Adjusts padding for buttons */
+        font-size: 1em; /* Sets font size for buttons */
+    }
+
+    h1, h2 {
+        font-size: 1.5em; /* Adjusts heading sizes */
+    }
+
+    .container {
+        width: 90%; /* Keeps container width at 90% */
+    }
+}
+
+/* For larger screens like laptops */
+@media (min-width: 769px) {
+    .header {
+        padding: 40px 0; /* Maintains larger padding for desktop */
+    }
+
+    nav a {
+        padding: 15px 25px; /* Keeps button padding */
+        font-size: 1.1em; /* Sets a larger font size for buttons */
+    }
+
+    h1, h2 {
+        font-size: 2em; /* Increases heading sizes for better visibility */
+    }
+
+    .container {
+        width: 80%; /* Adjusts container width for larger screens */
+    }
+}

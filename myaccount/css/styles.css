@@ -1,0 +1,162 @@
+/* styles.css */
+
+/* Import Orbitron font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* Apply background image and general styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../css/images/hero-bg.png'); /* Adjust the path as needed */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #ffffff; /* Adjust text color for better contrast */
+}
+
+/* Container to add a semi-transparent background for readability */
+.container {
+    background-color: rgba(0, 0, 0, 0.7); /* Black with 70% opacity */
+    padding: 20px;
+    max-width: 600px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Center the title */
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Orbitron', sans-serif; /* Optional: Apply techy font to title */
+}
+
+/* Error and success messages */
+.error-list {
+    color: #ff4d4d;
+    list-style-type: none;
+    padding: 0;
+}
+
+.success-message {
+    color: #4CAF50;
+    text-align: center;
+}
+
+/* Form styling */
+form {
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for the form */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Make readonly fields visually distinct */
+input[readonly] {
+    background-color: #555555;
+    color: #dddddd;
+    cursor: not-allowed;
+}
+
+/* Button styling with techy font */
+button {
+    padding: 12px 20px;
+    background-color: #ff4d4d; /* Red color for Update Account button */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif; /* Techy font */
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Links container styling */
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Links styled as buttons */
+.links a {
+    display: inline-block;
+    padding: 12px 0px;
+    background-color: #ff4d4d; /* Same red color as Update Account button */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif; /* Techy font */
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 48%; /* Ensure buttons have equal width and fit side by side */
+    text-align: center;
+}
+
+.links a:hover {
+    background-color: #e60000; /* Darker red on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    button,
+    .links a {
+        width: 100%;
+    }
+
+    .links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .links a {
+        margin: 5px 0;
+    }
+}
+
+/* Additional Features */
+
+/* Add focus outline for accessibility */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #00bfff;
+    box-shadow: 0 0 5px rgba(0, 191, 255, 0.5);
+}
+
+/* Style for the form container */
+form {
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for the form */
+    padding: 20px;
+    border-radius: 8px;
+}
