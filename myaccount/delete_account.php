@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve and sanitize the password input
     $password_input = trim($_POST['password']);
 
+    // Validate input
     if (empty($password_input)) {
         $errors[] = "Please enter your password to confirm account deletion.";
     } else {
@@ -53,94 +54,188 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $pdo->rollBack();
             }
             $errors[] = "An error occurred while deleting your account. Please try again later.";
-            // Log the actual error message securely (e.g., to a file or monitoring system)
+            // Log the actual error message securely
             // error_log($e->getMessage());
         }
     }
+
+    // If there are errors, store them in the session and redirect to avoid form resubmission
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: delete_account.php");
+        exit();
+    }
+}
+
+// Retrieve messages from session
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    unset($_SESSION['errors']);
+}
+
+if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    unset($_SESSION['success']);
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Account</title>
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="../myaccount/css/delete_account.css">
+    <!-- Google Fonts for Techy Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
     <style>
+        /* Background Image */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            padding: 20px;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
+            padding: 0;
+            background: url('../myaccount/css/images/hero-bg.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
         }
+
+        /* Main Container */
         .container {
-            background-color: #fff;
+            width: 400px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
             padding: 30px;
-            border: 1px solid #ccc;
-            max-width: 500px;
-            margin: auto;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            color: #fff;
         }
-        h1 {
-            color: #d9534f; /* Bootstrap danger color */
+
+        .container h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #ff4d4d; /* Red color for the header */
+            font-family: 'Orbitron', sans-serif; /* Techy font */
         }
-        .error {
-            color: #d9534f; /* Red for errors */
-            margin-bottom: 15px;
-            background-color: #f8d7da;
+
+        /* Error and Success Messages */
+        .error-list {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 5px solid #ff4d4d;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 4px;
+            margin-bottom: 20px;
         }
-        .success {
-            color: #5cb85c; /* Green for success */
-            margin-bottom: 15px;
-            background-color: #dff0d8;
+
+        .error-list li {
+            color: #ff4d4d;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 5px solid #4CAF50;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            color: #4CAF50;
         }
-        button {
-            background-color: #d9534f; /* Red button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-            width: 100%; /* Full-width button */
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
         }
-        button:hover {
-            background-color: #c9302c; /* Darker red on hover */
-        }
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            text-align: center;
-            color: #5bc0de; /* Bootstrap info color */
-            text-decoration: underline;
-            font-weight: bold;
-        }
-        a:hover {
-            color: #31b0d5; /* Darker blue on hover */
-        }
-        input[type="password"] {
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
         }
-        label {
-            font-weight: bold;
+
+        .input-container label {
             display: block;
             margin-bottom: 5px;
-            color: #333; /* Darker text for labels */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .input-container input {
+            width: 88%;
+            padding: 10px 40px 10px 10px; /* Padding to accommodate the eye icon */
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            border-color: #ff4d4d;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .eye-icon {
+            position: absolute;
+            top: 35px;
+            right: 10px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            fill: #ff4d4d;
+            transition: fill 0.3s ease;
+        }
+
+        .eye-icon:hover {
+            fill: #fff;
+        }
+
+        /* Submit and Action Buttons */
+        .submit-btn, .action-btn {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif; /* Techy font */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover, .action-btn:hover {
+            background-color: #e60000;
+            transform: scale(1.05);
+        }
+
+        /* Links as Buttons */
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .links a {
+            display: inline-block;
+            background-color: #ff4d4d;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 0 10px;
+            font-family: 'Orbitron', sans-serif; /* Techy font */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .links a:hover {
+            background-color: #e60000;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 450px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -151,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php 
         // Display errors
         if (!empty($errors)) {
-            echo "<div class='error'><ul>";
+            echo "<div class='error-list'><ul>";
             foreach ($errors as $error) {
                 echo "<li>" . htmlspecialchars($error) . "</li>";
             }
@@ -159,24 +254,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Display success message if redirected with a message
-        if (isset($_GET['message'])) {
-            echo "<div class='success'>" . htmlspecialchars($_GET['message']) . "</div>";
+        if (!empty($success)) {
+            echo "<div class='success-message'>" . htmlspecialchars($success) . "</div>";
         }
 
-        // If the form has not been submitted yet, show the confirmation form
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        // Show the confirmation form only if the form hasn't been successfully submitted
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !empty($errors)) {
         ?>
             <p style="text-align: center;">Are you sure you want to delete your account? This action cannot be undone.</p>
             <form method="POST" action="delete_account.php">
-                <!-- Optional: Add a hidden CSRF token here for enhanced security -->
-                <label for="password">Enter Your Password to Confirm:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Yes, Delete My Account</button>
-                <a href="myaccount.php">Cancel</a>
+                <div class="input-container">
+                    <label for="password">Enter Your Password to Confirm:</label>
+                    <input type="password" id="password" name="password" required>
+                    <svg class="eye-icon" onclick="togglePasswordVisibility('password', this)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <!-- Initial Eye Closed Icon -->
+                        <path d="M12 4.5C7.5 4.5 3.3 7.9 1.7 12c1.6 4.1 5.8 7.5 10.3 7.5 4.5 0 8.7-3.4 10.3-7.5C20.7 7.9 16.5 4.5 12 4.5zm0 12c-3.3 0-6.3-2.7-7.5-6.1 1.2-3.4 4.2-6.1 7.5-6.1 3.3 0 6.3 2.7 7.5 6.1-1.2 3.4-4.2 6.1-7.5 6.1zm0-10.9c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+                    </svg>
+                </div>
+                <button type="submit" class="submit-btn">Delete Account</button>
             </form>
-        <?php 
-        }
-        ?>
+            <div class="links">
+                <a href="my_account.php" class="action-btn">My Account</a>
+            </div>
+        <?php } ?>
     </div>
+    <script>
+        // Function to toggle password visibility
+        function togglePasswordVisibility(inputId, eyeIcon) {
+            var input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                eyeIcon.innerHTML = '<path d="M12 4.5C7.5 4.5 3.3 7.9 1.7 12c1.6 4.1 5.8 7.5 10.3 7.5 4.5 0 8.7-3.4 10.3-7.5C20.7 7.9 16.5 4.5 12 4.5zm0 12c-3.3 0-6.3-2.7-7.5-6.1 1.2-3.4 4.2-6.1 7.5-6.1 3.3 0 6.3 2.7 7.5 6.1-1.2 3.4-4.2 6.1-7.5 6.1zm0-10.9c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" />';
+            } else {
+                input.type = "password";
+                eyeIcon.innerHTML = '<path d="M12 4.5C7.5 4.5 3.3 7.9 1.7 12c1.6 4.1 5.8 7.5 10.3 7.5 4.5 0 8.7-3.4 10.3-7.5C20.7 7.9 16.5 4.5 12 4.5zm0 12c-3.3 0-6.3-2.7-7.5-6.1 1.2-3.4 4.2-6.1 7.5-6.1 3.3 0 6.3 2.7 7.5 6.1-1.2 3.4-4.2 6.1-7.5 6.1zm0-10.9c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" />';
+            }
+        }
+    </script>
 </body>
 </html>
