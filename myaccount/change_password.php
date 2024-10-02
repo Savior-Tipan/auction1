@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="links">
             <a href="edit_account.php">Edit Account</a>
-            <a href="myaccount.php">Back to My Account</a>
+            <a href="myaccount.php">My Account</a>
         </div>
     </div>
 
