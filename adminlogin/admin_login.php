@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['role'] = $admin['role'];
 
         // Redirect to dashboard
-        header("Location: update_admin.php");
+        header("Location: ../admin-dashboard/index.php");
         exit;
     } else {
         $_SESSION['error'] = "Invalid username or password!";
