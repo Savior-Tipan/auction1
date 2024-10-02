@@ -30,6 +30,7 @@ body {
     text-align: center;
     margin-bottom: 20px;
     font-family: 'Orbitron', sans-serif; /* Optional: Apply techy font to title */
+    color: #ff4d4d;
 }
 
 /* Error and success messages */
