@@ -40,7 +40,7 @@ if (!$user) {
     </header>
 
     <main>
-        <div class="container">
+        <div class="container-info">
             <h1>Welcome, <?php echo htmlspecialchars($user['first_name']); ?>!</h1>
             <h2>Your Information:</h2>
             <ul>
