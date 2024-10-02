@@ -9,26 +9,20 @@ body {
     color: #333; /* Sets a dark gray text color */
 }
 
-.container {
+.container-info {
     width: 90%; /* Sets the width of the container to 90% of the viewport */
-    max-width: 800px; /* Maximum width for larger screens */
+    max-width: 500px; /* Maximum width for larger screens */
     margin: 20px auto; /* Adds top margin to separate from header */
-    padding: 40px; /* Adds padding inside the container */
+    padding: 60px; /* Adds padding inside the container */
     background-color: rgba(255, 255, 255, 0.742); /* Slightly transparent white background */
     border-radius: 10px; /* Rounds the corners of the container */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    text-align: center; /* Center text in the container */
 }
-
-.container-header {
-    width: 90%; /* Sets the width of the container to 90% of the viewport */
-    max-width: 800px; /* Maximum width for larger screens */
-    margin: 8px auto; /* Adds top margin to separate from header */
-    padding: 40px; /* Adds padding inside the container */
-    background-color: rgba(255, 255, 255, 0.742); /* Slightly transparent white background */
-    border-radius: 10px; /* Rounds the corners of the container */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
-}
-
 
 /* Header Styles */
 .header {
@@ -43,6 +37,7 @@ body {
 
 #logo-img {
     height: 90px; /* Sets a taller height for the logo image */
+    margin-top: -30px; /* Adjusts the logo to be higher */
 }
 
 nav {
@@ -52,7 +47,7 @@ nav {
 nav a {
     text-decoration: none; /* Removes underline from links */
     padding: 15px 25px; /* Adds padding for better button visibility */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
     font-family: 'Orbitron', sans-serif; /* Sets a techy font for buttons */
     font-weight: bold; /* Makes the text bold for better visibility */
     color: #0c0b0c; /* Sets text color to dark gray */
@@ -61,6 +56,7 @@ nav a {
 
 nav a:hover {
     background-color: rgba(219, 151, 151, 0.85); /* Darker red on hover for feedback */
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
 }
 
 /* Main Styles */
@@ -92,11 +88,12 @@ li {
     border: 1px solid #f32b2b; /* Light gray border for each item */
     border-radius: 5px; /* Rounds the corners of the list items */
     background-color: #f9f9f9; /* Light background color for items */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
 }
 
 li:hover {
     background-color: rgba(255, 228, 225, 0.9); /* Light red background on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
 }
 
 /* Action Links */
@@ -112,14 +109,15 @@ li:hover {
     padding: 10px 15px; /* Adds padding for better visibility */
     border-radius: 5px; /* Rounds the corners of the action link buttons */
     text-decoration: none; /* Removes underline from links */
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover effect */
     font-family: 'Orbitron', sans-serif; /* Techy font for buttons */
     font-weight: bold; /* Makes the text bold */
     margin: 5px; /* Adds margin between action links */
 }
 
 .action-links a:hover {
-    background-color: rgba(139, 0, 0, 0.85); /* Darker red on hover for feedback */
+    background-color: rgba(211, 51, 51, 0.85); /* Darker red on hover for feedback */
+    transform: scale(1.05); /* Slightly enlarges the action link on hover */
 }
 
 /* Footer Styles */
