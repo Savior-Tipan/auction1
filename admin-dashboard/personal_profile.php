@@ -2,53 +2,27 @@
 // Start the session
 session_start();
 
-// Database connection
-$conn = new mysqli("localhost", "root", "", "jma");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Check if user is logged in and user_id is set in the session
-if (isset($_SESSION['admin_id'])) {
-    $admin_id = $_SESSION['admin_id'];
-
-    // Fetch the user's actual name and email from the database
-    $stmt = $conn->prepare("SELECT username, email FROM admins WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
-    $stmt->execute();
-    $stmt->bind_result($username, $email);
-    $stmt->fetch();
-    $stmt->close();
-} else {
-    // Redirect to login page if user is not logged in
-    header("Location: ../adminlogin/admin_login.php");
-    exit();
-}
-?>
-
-<?php
-require '../includes/config.php'; // Include your database connection file
+require '../includes/config.php'; // Database connection using PDO
 
 // Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../adminlogin/admin_login.php");
-    exit;
+    exit();
 }
 
 // Fetch admin data
 $admin_id = $_SESSION['admin_id'];
-$stmt = $pdo->prepare("SELECT username, email, password_hash FROM Admins WHERE admin_id = :admin_id");
-$stmt->execute(['admin_id' => $admin_id]);
+$stmt = $pdo->prepare("SELECT username, email, password_hash FROM admins WHERE admin_id = :admin_id");
+$stmt->execute([':admin_id' => $admin_id]);
 $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$admin) {
     $_SESSION['error'] = "Admin not found!";
     header("Location: ../index.php");
-    exit;
+    exit();
 }
-
+?>
+<?php
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
@@ -61,21 +35,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($email)) {
         $_SESSION['error'] = "Username and email are required!";
         header("Location: ../admin-dashboard/personal_profile.php");
-        exit;
+        exit();
     }
 
     // Verify the current password before updating
     if (!password_verify($password, $admin['password_hash'])) {
         $_SESSION['error'] = "Current password is incorrect!";
         header("Location: ../admin-dashboard/personal_profile.php");
-        exit;
+        exit();
     }
 
     // Check if the new password fields are filled and match
     if (!empty($new_password) && $new_password !== $confirm_password) {
         $_SESSION['error'] = "New passwords do not match!";
         header("Location: ../admin-dashboard/personal_profile.php");
-        exit;
+        exit();
     }
 
     try {
@@ -119,11 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     header("Location: ../admin-dashboard/personal_profile.php");
-    exit;
+    exit();
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -188,6 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             transform: translateY(-50%);
             cursor: pointer;
             color: #aaa;
+            padding-top: 15px;
         }
         @media (max-width: 768px) {
             .form-container {
@@ -211,23 +184,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <div class="container">
-        <nav class="sidebar">
-            <!-- Display user's actual name and email -->
-            <h2><?php echo $username; ?></h2>
-            <p><?php echo $email; ?></p>
-            <ul>
-                <li><a href="index.php"><i class="fa-solid fa-home"></i> Dashboard</a></li>
-                <li><a href="personal_profile.php"><i class="fa-solid fa-user"></i> Personal Profile</a></li>
-                <li><a href="my_products.php"><i class="fa-solid fa-gavel"></i> My Products</a></li>
-                <li><a href="add_products.php"><i class="fa-solid fa-trophy"></i> Add Products</a></li>
-                <li><a href="user_account.php"><i class="fa-solid fa-users"></i> User Account</a></li>
-            </ul>
-        </nav>
+    <nav class="sidebar">
+        <!-- Display user's actual name and email -->
+        <h2><?php echo htmlspecialchars($admin['username']); ?></h2>
+        <p><?php echo htmlspecialchars($admin['email']); ?></p>
+        <ul>
+            <li><a href="index.php"><i class="fa-solid fa-home"></i> Dashboard</a></li>
+            <li><a href="personal_profile.php"><i class="fa-solid fa-user"></i> Personal Profile</a></li>
+            <li><a href="my_products.php"><i class="fa-solid fa-gavel"></i> My Products</a></li>
+            <li><a href="add_products.php"><i class="fa-solid fa-trophy"></i> Add Products</a></li>
+            <li><a href="user_account.php"><i class="fa-solid fa-users"></i> User Account</a></li>
+        </ul>
+    </nav>
+
     <div class="form-container">
         <h3>Manage Profile</h3>
         <form action="personal_profile.php" method="POST">
             <div class="form-group">
-                <label for="username"><strong>Username:<strong></label><br>
+                <label for="username">Username:</label><br>
                 <input type="text" name="username" class="form-control" id="username" value="<?= htmlspecialchars($admin['username']); ?>" required>
             </div>
             <div class="form-group">
@@ -237,65 +211,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group eye-icon">
                 <label for="password">Current Password:</label><br>
                 <input type="password" name="password" class="form-control" id="password" placeholder="Enter current password" required>
-                <i class="fa-eye-slash" id="togglePassword"></i>
+                <i class="fa fa-eye-slash" id="togglePassword"></i>
             </div>
             <div class="form-group eye-icon">
                 <label for="new_password">New Password (Optional):</label><br>
                 <input type="password" name="new_password" class="form-control" id="new_password" placeholder="Enter new password">
-                <i class="fa-eye-slash" id="toggleNewPassword"></i>
+                <i class="fa fa-eye-slash" id="toggleNewPassword"></i>
             </div>
             <div class="form-group eye-icon">
                 <label for="confirm_password">Confirm New Password:</label><br>
                 <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm new password">
-                <i class="fa-eye-slash" id="toggleConfirmPassword"></i>
+                <i class="fa fa-eye-slash" id="toggleConfirmPassword"></i>
             </div>
-            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <button type="submit" class="btn-primary">Update Profile</button>
         </form>
     </div>
+</div>
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
-        <?php if (isset($_SESSION['error'])): ?>
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: '<?= $_SESSION['error']; unset($_SESSION['error']); ?>',
-            });
-        <?php endif; ?>
+<script>
+    const togglePassword = document.querySelector('#togglePassword');
+const password = document.querySelector('#password');
 
-        <?php if (isset($_SESSION['success'])): ?>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '<?= $_SESSION['success']; unset($_SESSION['success']); ?>',
-            });
-        <?php endif; ?>
+togglePassword.addEventListener('click', function () {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+});
 
-        // Toggle password visibility
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-        togglePassword.addEventListener('click', function () {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');
-        });
+const toggleNewPassword = document.querySelector('#toggleNewPassword');
+const newPassword = document.querySelector('#new_password');
 
-        const toggleNewPassword = document.querySelector('#toggleNewPassword');
-        const new_password = document.querySelector('#new_password');
-        toggleNewPassword.addEventListener('click', function () {
-            const type = new_password.getAttribute('type') === 'password' ? 'text' : 'password';
-            new_password.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');
-        });
+toggleNewPassword.addEventListener('click', function () {
+    const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+    newPassword.setAttribute('type', type);
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+});
 
-        const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
-        const confirm_password = document.querySelector('#confirm_password');
-        toggleConfirmPassword.addEventListener('click', function () {
-            const type = confirm_password.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirm_password.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');
-        });
-    </script>
+const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+const confirmPassword = document.querySelector('#confirm_password');
+
+toggleConfirmPassword.addEventListener('click', function () {
+    const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirmPassword.setAttribute('type', type);
+    this.classList.toggle('fa-eye');
+    this.classList.toggle('fa-eye-slash');
+});
+</script>
 </body>
 </html>
