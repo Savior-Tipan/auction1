@@ -56,7 +56,7 @@
                 <li>
                     <a href="#" class="navbar-link"><i class="profile-icon">👤</i> Profile</a>
                     <ul class="dropdown-menu">
-                        <li><a href="../auction/myaccount/myaccount.php" class="dropdown-item button"><i>👤</i> My Account</a></li>
+                        <li><a href="../myaccount/myaccount.php" class="dropdown-item button"><i>👤</i> My Account</a></li>
                         <li><a href="#" class="dropdown-item button"><i>📦</i>My Bids</a></li>
                         <li><a href="../auction/login/login.php" class="dropdown-item button"><i>🔓</i>Logout</a></li>
                     </ul>
