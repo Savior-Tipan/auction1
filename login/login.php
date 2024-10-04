@@ -234,6 +234,10 @@ $savedPassword = isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; // Cau
                 </div>
                 <!-- Remember Me Checkbox -->
                 <div class="form-group custom-form-group">
+                    <div>
+                        <input type="checkbox" id="remember" name="remember" <?php echo isset($_COOKIE['username']) ? 'checked' : ''; ?>>
+                        <label for="remember">Remember Me</label>
+                    </div>
                     <span class="form-text-custom"><a href="forgot_password.php">Forgot password?</a></span>
                 </div>
                 <button type="submit" class="btn btn-custom">Log In</button>
