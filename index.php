@@ -1,3 +1,34 @@
+<?php
+// Start the session
+session_start();
+require './includes/config.php'; // Include your database connection
+
+// Check if user is logged in and user_id is set in the session
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    // Fetch the user's actual name and email from the database using PDO
+    $stmt = $pdo->prepare("SELECT username FROM users WHERE user_id = :user_id");
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Fetch the result as an associative array
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $username = $user['username'];
+       
+    } else {
+        // Redirect to login page if no admin found
+        header("Location: ./login/login.php");
+        exit();
+    }
+} else {
+    // Redirect to login page if user is not logged in
+    header("Location: ./login/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +90,7 @@
             <ul class="navbar-list">
 
                 <li>
-                    <a href="#" class="navbar-link"><i class="products-icon">🛒</i> Products</a>
+                    <a href="admin-dashboard/truck_list.php" class="navbar-link"><i class="products-icon">🛒</i> Products</a>
                 </li>
 
                 <li>

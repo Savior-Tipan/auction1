@@ -32,18 +32,20 @@ if (isset($_SESSION['admin_id'])) {
 
 <?php
 session_start();
-include "../includes/header.php";
 require '../includes/config.php'; // Include your database connection
 
 // Check if admin is logged in
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: admin_login.php");
+    header("Location: ../adminlogin/admin_login.php");
     exit;
 }
 
 // Fetch categories for the dropdown
 $stmt = $pdo->query("SELECT * FROM categories");
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$makersStmt = $pdo->query("SELECT * FROM TruckMakers");
+$makers = $makersStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -54,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $auction_start = isset($_POST['auction_start']) ? trim($_POST['auction_start']) : '';
     $auction_end = isset($_POST['auction_end']) ? trim($_POST['auction_end']) : '';
     $category_id = isset($_POST['category_id']) ? trim($_POST['category_id']) : '';
+    $maker_id = isset($_POST['maker_id']) ? trim($_POST['maker_id']) : ''; // New field for truck maker
     $status = 'active'; // Default status when creating a new truck auction
 
     // Validate inputs
@@ -76,9 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Insert the truck details
         $stmt = $pdo->prepare("
-            INSERT INTO Trucks (truck_name, description, model_year, starting_bid, current_bid, auction_start, auction_end, category_id, status) 
-            VALUES (:truck_name, :description, :model_year, :starting_bid, 0.00, :auction_start, :auction_end, :category_id, :status)
+            INSERT INTO Trucks (truck_name, description, model_year, starting_bid, current_bid, auction_start, auction_end, category_id, maker_id, status) 
+            VALUES (:truck_name, :description, :model_year, :starting_bid, 0.00, :auction_start, :auction_end, :category_id, :maker_id, :status)
         ");
+
         $stmt->execute([
             ':truck_name' => $truck_name,
             ':description' => $description,
@@ -87,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':auction_start' => $auction_start,
             ':auction_end' => $auction_end,
             ':category_id' => $category_id,
+            ':maker_id' => $maker_id, // Truck maker
             ':status' => $status
         ]);
 
@@ -100,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if (move_uploaded_file($image_tmp_name, $image_path)) {
                     $stmt = $pdo->prepare("INSERT INTO TruckImages (truck_id, image_path) VALUES (:truck_id, :image_path)");
-                    $stmt->execute([
+                    $stmt->execute(params: [
                         ':truck_id' => $truck_id,
                         ':image_path' => $image_path
                     ]);
@@ -221,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         #truck_name, #model_year {
             margin-bottom: 5px;
         }
+        
     </style>
 </head>
 <?php include('../includes/header.php'); ?>
@@ -272,6 +278,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                <label for="maker_id">Truck Maker</label>
+                <select name="maker_id" class="form-control" id="maker_id" required>
+                    <?php foreach ($makers as $maker): ?>
+                        <option value="<?= $maker['maker_id']; ?>"><?= $maker['maker_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="auction_start">Auction Start Date & Time</label>
