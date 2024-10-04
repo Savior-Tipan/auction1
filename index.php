@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +60,7 @@
             <ul class="navbar-list">
 
                 <li>
-                    <a href="#" class="navbar-link"><i class="products-icon">🛒</i> Products</a>
+                    <a href="admin-dashboard/truck_list.php" class="navbar-link"><i class="products-icon">🛒</i> Products</a>
                 </li>
 
                 <li>
@@ -80,7 +81,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../auction/myaccount/myaccount.php" class="dropdown-item button"><i>👤</i> My Account</a></li>
                         <li><a href="#" class="dropdown-item button"><i>📦</i>My Bids</a></li>
-                        <li><a href="../auction/login/login.php" class="dropdown-item button"><i>🔓</i>Logout</a></li>
+                        <li><a href="../auction/login/logout.php" class="dropdown-item button"><i>🔓</i>Logout</a></li>
                     </ul>
                 </li>
             </ul>

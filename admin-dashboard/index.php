@@ -1,26 +1,28 @@
 <?php
 // Start the session
 session_start();
-
-// Database connection
-$conn = new mysqli("localhost", "root", "", "jma");
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require '../includes/config.php'; // Include your database connection
 
 // Check if user is logged in and user_id is set in the session
 if (isset($_SESSION['admin_id'])) {
     $admin_id = $_SESSION['admin_id'];
 
-    // Fetch the user's actual name and email from the database
-    $stmt = $conn->prepare("SELECT username, email FROM admins WHERE admin_id = ?");
-    $stmt->bind_param("i", $admin_id);
+    // Fetch the user's actual name and email from the database using PDO
+    $stmt = $pdo->prepare("SELECT username, email FROM admins WHERE admin_id = :admin_id");
+    $stmt->bindParam(':admin_id', $admin_id, PDO::PARAM_INT);
     $stmt->execute();
-    $stmt->bind_result($username, $email);
-    $stmt->fetch();
-    $stmt->close();
+
+    // Fetch the result as an associative array
+    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($admin) {
+        $username = $admin['username'];
+        $email = $admin['email'];
+    } else {
+        // Redirect to login page if no admin found
+        header("Location: ../adminlogin/admin_login.php");
+        exit();
+    }
 } else {
     // Redirect to login page if user is not logged in
     header("Location: ../adminlogin/admin_login.php");
@@ -36,44 +38,10 @@ if (isset($_SESSION['admin_id'])) {
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <style>
-        /* Add styles for the button */
-        .btn-signup {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .btn-signup:hover {
-            background-color: #218838;
-        }
-
-        /* Ensure container and main content have proper layout */
-        .container {
-            position: relative; /* For button positioning */
-            display: flex;
-        }
-
-        .sidebar {
-            width: 250px;
-            padding: 20px;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS for modal -->
+    
 </head>
-
+<?php include('../includes/header.php'); ?>
 <body>
 
     <div class="container">
@@ -84,19 +52,19 @@ if (isset($_SESSION['admin_id'])) {
 
         <nav class="sidebar">
             <!-- Display user's actual name and email -->
-            <h2><?php echo $username; ?></h2>
-            <p><?php echo $email; ?></p>
+            <h2><?php echo htmlspecialchars($username); ?></h2>
+            <p><?php echo htmlspecialchars($email); ?></p>
             <ul>
                 <li><a href="index.php"><i class="fa-solid fa-home"></i> Dashboard</a></li>
                 <li><a href="personal_profile.php"><i class="fa-solid fa-user"></i> Personal Profile</a></li>
                 <li><a href="my_products.php"><i class="fa-solid fa-gavel"></i> My Products</a></li>
-                <li><a href="add_products.php"><i class="fa-solid fa-trophy"></i> Add Products</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#addProductModal"><i class="fa-solid fa-trophy"></i> Add Products</a></li> <!-- Open modal -->
                 <li><a href="user_account.php"><i class="fa-solid fa-users"></i> User Account</a></li>
             </ul>
         </nav>
 
         <main class="content">
-            <h1>Active Bids</h1>
+            <h1>Welcome to your dashboard.</h1>
             <div class="stats">
                 <div class="stat-box">
                     <i class="fas fa-gavel stat-icon"></i> <!-- Icon for Active Bids -->
@@ -111,6 +79,7 @@ if (isset($_SESSION['admin_id'])) {
                     <div>124 <br>Revenue Generated</div>
                 </div>
             </div>
+            <h1>Bid History</h1>
             <table>
                 <thead>
                     <tr>
@@ -150,6 +119,67 @@ if (isset($_SESSION['admin_id'])) {
         </main>
 
     </div>
-    <script src="script.js"></script>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form for adding products (from add_products.php) -->
+                    <form action="add_products.php" method="POST">
+                        <div class="form-group">
+                            <label for="truck_name">Truck Name:</label>
+                            <input type="text" class="form-control" id="truck_name" name="truck_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea class="form-control" id="description" name="description" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="model_year">Model Year:</label>
+                            <input type="number" class="form-control" id="model_year" name="model_year" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="starting_bid">Starting Bid:</label>
+                            <input type="number" class="form-control" id="starting_bid" name="starting_bid" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="current_bid">Current Bid:</label>
+                            <input type="number" class="form-control" id="current_bid" name="current_bid" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="auction_start">Auction Start Date:</label>
+                            <input type="date" class="form-control" id="auction_start" name="auction_start" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="auction_end">Auction End Date:</label>
+                            <input type="date" class="form-control" id="auction_end" name="auction_end" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="maker">Truck Maker:</label>
+                            <select class="form-control" id="maker" name="maker">
+                                <option value="Toyota">Toyota</option>
+                                <option value="Isuzu">Isuzu</option>
+                                <option value="Mitsubishi">Mitsubishi</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS for modal -->
 </body>
+<?php include('../includes/footer.php'); ?>
+
 </html>

@@ -207,8 +207,8 @@ $savedPassword = isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; // Cau
             <img src="../logo/jmalogo.png" alt="JMA Logo" class="logo">
             <h1>JMA Trucks Solution</h1>
             <h2>Online Auction</h2>
-            <p><strong>Hey there!</strong></p>
-            <p>Welcome! You are just one step away from your dream truck.</p>
+            <p><strong>Welcome!</strong></p>
+            <p>You are just one step away from your dream truck.</p>
         </div>
 
         <!-- Right Section -->
@@ -234,13 +234,17 @@ $savedPassword = isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; // Cau
                 </div>
                 <!-- Remember Me Checkbox -->
                 <div class="form-group custom-form-group">
+                    <div>
+                        <input type="checkbox" id="remember" name="remember" <?php echo isset($_COOKIE['username']) ? 'checked' : ''; ?>>
+                        <label for="remember">Remember Me</label>
+                    </div>
                     <span class="form-text-custom"><a href="forgot_password.php">Forgot password?</a></span>
                 </div>
                 <button type="submit" class="btn btn-custom">Log In</button>
             </form>
             <p class="mt-3 text-center">Don’t have an account? <a href="signup.php" class="btn-link">REGISTER NOW</a></p>
             
-            <p class="mt-3 text-center">"Driven by quality, powered by performance"</p>
+            <p class="mt-3 text-center"><strong> "Driven by quality, powered by performance"</strong></p>
         </div>
     </div>
 

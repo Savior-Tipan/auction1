@@ -3,44 +3,17 @@
 
 /* Global Styles */
 body {
+    padding-top: 150px;
     background-image: url('../reviews-page/images/hero-bg.png'); /* Background image */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-color: #1a1a1a; /* Fallback color */
     font-family: 'Roboto', sans-serif;
     color: #f8f8f8; /* Text color */
-    background-color: #1a1a1a; /* Fallback color */
+    
 }
 
-/* Header Styles */
-header.header {
-    background-color: rgba(212, 98, 98, 0.9); /* Semi-transparent dark red */
-    padding: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
-}
-
-header .logo img {
-    max-width: 150px;
-}
-
-.navbar-list {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar-link {
-    color: #ffffff; /* Text color */
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s, text-shadow 0.3s;
-    font-family: 'Orbitron', sans-serif; /* Techy font */
-}
-
-.navbar-link:hover {
-    color: #ffcccc; /* Hover color */
-    text-shadow: 0 0 5px #ffcccc; /* Hover shadow effect */
-}
 
 /* Page Title */
 .page-title {
@@ -223,9 +196,6 @@ header .logo img {
     height: 500px; /* Fixed height */
 }
 
-.modal-header {
-    border-bottom: none;
-}
 
 .modal-body {
     position: relative;

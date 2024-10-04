@@ -173,22 +173,9 @@ if (isset($_SESSION['success_message'])) {
     <link rel="stylesheet" href="style.css"> 
     
 </head>
+<?php include('../includes/header.php'); ?>
+
 <body>
-    <header class="header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a href="../index.php" class="logo">
-                <img src="./images/jma-logo.png" width="128" height="63" alt="Logo">
-            </a>
-            <nav class="navbar">
-                <ul class="navbar-list">
-                    <li><a href="../index.php" class="navbar-link">Home</a></li>
-                    <li><a href="#" class="navbar-link">About</a></li>
-                    <li><a href="../login/logout.php" class="navbar-link">Logout</a></li>
-                    <li><a href="#" class="navbar-link">Product</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
     <div class="container mt-5">
         <h2 class="page-title">Reviews/Feedback</h2>
@@ -502,5 +489,7 @@ if (isset($_SESSION['success_message'])) {
         });
     </script>
 </body>
+<?php include('../includes/footer.php'); ?>
+
 </html>
 
