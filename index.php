@@ -81,7 +81,8 @@
                     <ul class="dropdown-menu">
                         <li><a href="../auction/myaccount/myaccount.php" class="dropdown-item button"><i>👤</i> My Account</a></li>
                         <li><a href="#" class="dropdown-item button"><i>📦</i>My Bids</a></li>
-                        <li><a href="../auction/login/logout.php" class="dropdown-item button"><i>🔓</i>Logout</a></li>
+                        <li><a href="../auction/paymentprocedure/payment_procedure.php" class="dropdown-item button"><i>👤</i> Payment Procedure</a></li>
+                        <li><a href="../auction/login/login.php" class="dropdown-item button"><i>🔓</i>Logout</a></li>
                     </ul>
                 </li>
             </ul>
