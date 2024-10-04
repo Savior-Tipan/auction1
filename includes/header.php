@@ -44,7 +44,7 @@
                     <a href="#" class="navbar-link"><i class="products-icon">🛒</i> Products</a>
                 </li>
                 <li>
-                    <a href="reviews-page/reviews.php" class="navbar-link"><i class="reviews-icon">⭐</i> Reviews</a>
+                    <a href="../reviews-page/reviews.php" class="navbar-link"><i class="reviews-icon">⭐</i> Reviews</a>
                 </li>
                 <li>
                     <a href="#" class="navbar-link"><i class="bell-icon">🔔</i> Notifications</a>
