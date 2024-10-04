@@ -39,41 +39,9 @@ if (isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> <!-- Bootstrap CSS for modal -->
-    <style>
-        .btn-signup {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .btn-signup:hover {
-            background-color: #218838;
-        }
-
-        .container {
-            position: relative; /* For button positioning */
-            display: flex;
-        }
-
-        .sidebar {
-            width: 250px;
-            padding: 20px;
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-        }
-    </style>
+    
 </head>
-
+<?php include('../includes/header.php'); ?>
 <body>
 
     <div class="container">
@@ -96,7 +64,7 @@ if (isset($_SESSION['admin_id'])) {
         </nav>
 
         <main class="content">
-            <h1>Active Bids</h1>
+            <h1>Welcome to your dashboard.</h1>
             <div class="stats">
                 <div class="stat-box">
                     <i class="fas fa-gavel stat-icon"></i> <!-- Icon for Active Bids -->
@@ -111,6 +79,7 @@ if (isset($_SESSION['admin_id'])) {
                     <div>124 <br>Revenue Generated</div>
                 </div>
             </div>
+            <h1>Bid History</h1>
             <table>
                 <thead>
                     <tr>
@@ -211,4 +180,6 @@ if (isset($_SESSION['admin_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!-- Bootstrap JS for modal -->
 </body>
+<?php include('../includes/footer.php'); ?>
+
 </html>

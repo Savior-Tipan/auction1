@@ -104,84 +104,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Personal Profile</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <style>
-        /* General Styling */
-        body {
-            background: linear-gradient(135deg, #ffffff, #e0e0e0); /* Background gradient */
-            font-family: 'Montserrat', sans-serif;
-            color: #333;
-        }
-        .form-container {
-            width: 800px;
-            padding: 30px;
-            background-color: #fff;
-            color: #333;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin: 60px auto;
-            height: 500px;
-        }
-        h3 {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ff4c4c;
-        }
-        .form-control {
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #ff4c4c;
-            width: 775px;
-            padding: 10px;
-            margin: 5px;
-        }
-        .btn-primary {
-            background-color: #ff4c4c;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            width: 100%;
-            text-transform: uppercase;
-            margin: 10px;
-        }
-        .btn-primary:hover {
-            background-color: #e32f2f;
-        }
-        .eye-icon {
-            position: relative;
-        }
-        .eye-icon i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #aaa;
-            padding-top: 15px;
-        }
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 20px;
-            }
-            h3 {
-                font-size: 20px;
-            }
-            .btn-primary {
-                font-size: 14px;
-            }
-            .form-control {
-                margin-bottom: 15px;
-            }
-        }
-        label {
-            margin: 10px 0 5px;
-            margin-left: 10px;
-        }
-    </style>
+    
 </head>
+<?php include('../includes/header.php'); ?>
+
 <body>
 <div class="container">
     <nav class="sidebar">
@@ -260,4 +186,6 @@ toggleConfirmPassword.addEventListener('click', function () {
 });
 </script>
 </body>
+<?php include('../includes/footer.php'); ?>
+
 </html>

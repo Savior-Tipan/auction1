@@ -38,6 +38,8 @@ if (isset($_SESSION['admin_id'])) {
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
+<?php include('../includes/header.php'); ?>
+
 <body>
     <div class="container">
         <nav class="sidebar">
@@ -79,4 +81,6 @@ if (isset($_SESSION['admin_id'])) {
     </div>
     <script src="script.js"></script>
 </body>
+<?php include('../includes/footer.php'); ?>
+
 </html>
